@@ -28,3 +28,35 @@
     - 이름은 필수로 입력이 되어야 하며, 빈칸이 입력되면 에러 메시지 보여주기
 
 - 강의에서 제공한 html page를 사용하기 때문에 자세한 설정 사항은 추후에 수정(서버 개발에 집중)
+
+## 리팩토링을 해야 하는 이유
+[Clean Code]
+- 함수는 최대한 작게 만들고 한 가지 일만 수행하는 것이 좋다. 
+- 클래스는 작아야 하며 하나의 책임만을 가져야 한다.
+-> 현재 Controller에 비즈니스적인 요소, DB와 연동하는 기능이 모두 담겨 있음
+
+- 우리가 작성한 Controller 함수 1개가 3000줄이 넘는다면?
+1. 그 함수를 동시에 여러 명이 수정할 수 없다.
+2. 그 함수를 읽고, 이해하는 것이 너무 어렵다.
+3. 그 함수의 어느 부분을 수정하더라도 함수 전체에 영향을 미칠 수 있기 때문에 함부로 건들 수 없게 된다.
+4. 너무 큰 기능이기 때문에 테스트가 힘들다.
+5. 종합적으로 유지보수성이 매우 떨어진다.
+
+
+### 현재 Controller는?
+
+```java
+    @GetMapping("/user")
+    public List<UserResponse> getUsers() {
+        String sql = "SELECT * FROM user";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            long id = rs.getLong("id");
+            String name = rs.getString("name");
+            int age = rs.getInt("age");
+            return new UserResponse(id, name, age);
+        });
+    }
+```
+1. API의 <b>진입 지점</b>으로써 HTTP Body를 객체로 변환한다.<br>
+2. 현재 유저가 있는지 없는지 확인하고 <b>예외 처리</b>를 한다.<br>
+3. SQL을 사용해 실제 Database와의 통신을 담당한다.<br>
