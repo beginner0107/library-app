@@ -13,10 +13,8 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final JdbcTemplate jdbcTemplate;
 
     public UserController(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
         this.userService = new UserService(jdbcTemplate);
     }
 
