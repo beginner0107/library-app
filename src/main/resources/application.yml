@@ -12,12 +12,9 @@ spring:
                      # update: 객체와 테이블이 다른 부분만 변경
                      # validate: 객체와 테이블이 동일한지 확인
                      # none: 별다른 조치를 하지 않는다.
+    show-sql: true   # SQL을 보여줄 때 예쁘게 포맷팅
     properties:
       hibernate:
-        show-sql: true   # SQL을 보여줄 때 예쁘게 포맷팅
         format_sql: true # JPA를 사용해 DB에 SQL을 날릴 때 SQL을 보여줄 것인가
         dialect: org.hibernate.dialect.MySQL8Dialect # 방언, 사투리 -> 이 옵션으로 DB를 특정하면 조금씩 다른 SQL을 수정
-  mvc:
-    hidden-method:
-      filter:
-        enabled: true
+    open-in-view: false
