@@ -205,3 +205,14 @@ chmode + x./gradlew
 # 빌드된 프로젝트 실행
 java -jar build/libs/library-app-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 ```   
+
+#### foreground / background
+- 서버를 background로 동작하게 만들어야 함
+```
+# nohub [명령어] &
+nohup java -jar library-app/build/libs/library-app-0.0.1-SNAPSHOT.jar &
+
+# background의 서버 종료하기
+ps aux | grep java
+# kill 9 프로그램 번호 
+```
