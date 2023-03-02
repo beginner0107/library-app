@@ -165,3 +165,43 @@ create table user_loan_history(
   primary key(id)
 );
 ```
+```
+git clone [github 저장소 주소]
+```
+
+#### 빌드 & 실행
+- 현재 사용하고 있는 대여한 컴퓨터는 성능이 좋지 않아, 빌드나 실행시 렉이 많이 걸릴 수 있음
+- 따라서, 메모리가 부족한 경우 디스크를 사용할 수 있는 `SWAP` 설정을 해야 함.
+- SWAP설정: 원래 RAM을 사용해야 하지만, RAM이 부족한 경우에 일부 DISK를 사용하게 해주는 설정
+```
+# swap 메모리를 할당한다 (128M * 16 = 2GB)
+sudo dd if=/dev/zero of=/swapfile bs=128M count=16
+
+# 스왑 파일에 대한 권한 업데이트
+sudo chmod 600 /swapfile
+
+# swap 영역 설정
+sudo mkswap /swapfile
+
+# swap 파일을 사용할 수 있도록 만든다.
+sudo swapon /swapfile
+
+# swap 성공 확인
+sudo swapon -s
+```
+- 빌드 준비
+```
+# gradlew를 사용하기 위해 실행할 수 있도록 설정한다.
+chmode + x./gradlew
+```
+- 빌드
+```
+# gradle을 이용해 프로젝트를 빌드한다. 이때 테스트를 돌리지 않는다.
+./gradlew build -x test
+
+# 테스트를 돌리고 싶다면
+./gradlew build
+
+# 빌드된 프로젝트 실행
+java -jar build/libs/library-app-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+```   
