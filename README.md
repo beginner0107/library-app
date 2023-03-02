@@ -216,3 +216,6 @@ nohup java -jar library-app/build/libs/library-app-0.0.1-SNAPSHOT.jar &
 ps aux | grep java
 # kill 9 프로그램 번호 
 ```
+
+## AWS로 배포한 사이트 주소
+- http://3.35.174.160:8080/v1/index.html
