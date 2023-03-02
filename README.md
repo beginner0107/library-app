@@ -126,3 +126,42 @@
 - `pwd`: 현재 위치를 확인하는 명령어
 - `cd ..`: 상위 폴더로 올라가는 명령어
 - `rmdir`: 비어 있는 폴더(디렉토리)를 제거하는 명령어
+
+#### 리눅스에서 스프링 서버 배포를 위한 프로그램을 설치
+- `sudo yum update`: 리눅스 패키지 관리 프로그램(gradle과 비슷한 역할)
+- `sudo yum install git -y`: yum을 이용해 프로그램을 다운로드
+- `sudo yum install java-11-amazon-corretto -y`: Java 설치
+- `wget https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm`
+- `sudo rpm -ivh mysql80-community-release-el7-5.noarch.rpm`
+- `sudo yum install mysql-community-server`: mySQL 설치
+- `sudo systemctl status mysqld`: 현재 보이지 않는 프로그램을 관리하는 명령어
+- `sudo systemctl restart mysql`: mysqld 프로그램을 재시작
+- `sudo cat /var/log/mysqld.log | grep "A temporary password"`: mysql8의 임시 비밀번호를 확인하는 명령어
+- `mysql -u root -p`: 입력한 뒤 임시 비밀번호 입력
+ 
+- `ALTER user 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY "비밀번호"`: 임시 비밀번호를 변경해야 함
+- yml 파일에 password도 재설정
+
+```sql
+create database library;
+create table user(
+  id bigint auto_increment,
+  name varchar(25),
+  age int,
+  primary key(id)
+);
+
+create table book(
+  id bigint auto_increment,
+  name varchar(255),
+  primary key (id)
+);
+
+create table user_loan_history(
+  id bigint auto_increment,
+  user_id bigint,
+  book_name varchar(255),
+  is_return tinyint(1),
+  primary key(id)
+);
+```
