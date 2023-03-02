@@ -6,7 +6,7 @@
 ## 개요
 - 프로젝트 명칭: library-app
 - 개발인원: 1명
-- 개발기간: 2023-02-23 ~ 
+- 개발기간: 2023-02-23 ~ 03-02
 - 주요기능:
   - 사용자
     - [X] 도서관의 사용자를 등록할 수 있다.(이름 필수, 나이 선택)
@@ -27,7 +27,7 @@
   - 유효성 검사
     - 이름은 필수로 입력이 되어야 하며, 빈칸이 입력되면 에러 메시지 보여주기
 
-- 강의에서 제공한 html page를 사용하기 때문에 자세한 설정 사항은 추후에 수정(서버 개발에 집중)
+- 강의에서 제공한 html page를 사용하기 때문에 화면적인 구성은 건드리지 못함
 
 ## 리팩토링을 해야 하는 이유(1)
 ### [Clean Code]
@@ -219,3 +219,7 @@ ps aux | grep java
 
 ## AWS로 배포한 사이트 주소
 - http://3.35.174.160:8080/v1/index.html
+
+## API Spec
+![image](https://user-images.githubusercontent.com/81161819/222455045-48cbcf04-637c-4ac5-803b-4a6a7a1b1472.png)
+![image](https://user-images.githubusercontent.com/81161819/222455373-ced00b01-acb3-4511-97e1-9f51f4c44eea.png)
