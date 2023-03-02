@@ -126,3 +126,93 @@
 - `pwd`: 현재 위치를 확인하는 명령어
 - `cd ..`: 상위 폴더로 올라가는 명령어
 - `rmdir`: 비어 있는 폴더(디렉토리)를 제거하는 명령어
+
+#### 리눅스에서 스프링 서버 배포를 위한 프로그램을 설치
+- `sudo yum update`: 리눅스 패키지 관리 프로그램(gradle과 비슷한 역할)
+- `sudo yum install git -y`: yum을 이용해 프로그램을 다운로드
+- `sudo yum install java-11-amazon-corretto -y`: Java 설치
+- `wget https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm`
+- `sudo rpm -ivh mysql80-community-release-el7-5.noarch.rpm`
+- `sudo yum install mysql-community-server`: mySQL 설치
+- `sudo systemctl status mysqld`: 현재 보이지 않는 프로그램을 관리하는 명령어
+- `sudo systemctl restart mysql`: mysqld 프로그램을 재시작
+- `sudo cat /var/log/mysqld.log | grep "A temporary password"`: mysql8의 임시 비밀번호를 확인하는 명령어
+- `mysql -u root -p`: 입력한 뒤 임시 비밀번호 입력
+ 
+- `ALTER user 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY "비밀번호"`: 임시 비밀번호를 변경해야 함
+- yml 파일에 password도 재설정
+
+```sql
+create database library;
+create table user(
+  id bigint auto_increment,
+  name varchar(25),
+  age int,
+  primary key(id)
+);
+
+create table book(
+  id bigint auto_increment,
+  name varchar(255),
+  primary key (id)
+);
+
+create table user_loan_history(
+  id bigint auto_increment,
+  user_id bigint,
+  book_name varchar(255),
+  is_return tinyint(1),
+  primary key(id)
+);
+```
+```
+git clone [github 저장소 주소]
+```
+
+#### 빌드 & 실행
+- 현재 사용하고 있는 대여한 컴퓨터는 성능이 좋지 않아, 빌드나 실행시 렉이 많이 걸릴 수 있음
+- 따라서, 메모리가 부족한 경우 디스크를 사용할 수 있는 `SWAP` 설정을 해야 함.
+- SWAP설정: 원래 RAM을 사용해야 하지만, RAM이 부족한 경우에 일부 DISK를 사용하게 해주는 설정
+```
+# swap 메모리를 할당한다 (128M * 16 = 2GB)
+sudo dd if=/dev/zero of=/swapfile bs=128M count=16
+
+# 스왑 파일에 대한 권한 업데이트
+sudo chmod 600 /swapfile
+
+# swap 영역 설정
+sudo mkswap /swapfile
+
+# swap 파일을 사용할 수 있도록 만든다.
+sudo swapon /swapfile
+
+# swap 성공 확인
+sudo swapon -s
+```
+- 빌드 준비
+```
+# gradlew를 사용하기 위해 실행할 수 있도록 설정한다.
+chmode + x./gradlew
+```
+- 빌드
+```
+# gradle을 이용해 프로젝트를 빌드한다. 이때 테스트를 돌리지 않는다.
+./gradlew build -x test
+
+# 테스트를 돌리고 싶다면
+./gradlew build
+
+# 빌드된 프로젝트 실행
+java -jar build/libs/library-app-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+```   
+
+#### foreground / background
+- 서버를 background로 동작하게 만들어야 함
+```
+# nohub [명령어] &
+nohup java -jar library-app/build/libs/library-app-0.0.1-SNAPSHOT.jar &
+
+# background의 서버 종료하기
+ps aux | grep java
+# kill 9 프로그램 번호 
+```
