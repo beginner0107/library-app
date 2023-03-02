@@ -192,7 +192,7 @@ sudo swapon -s
 - 빌드 준비
 ```
 # gradlew를 사용하기 위해 실행할 수 있도록 설정한다.
-chmode + x./gradlew
+chmod + x./gradlew
 ```
 - 빌드
 ```
