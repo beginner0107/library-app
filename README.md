@@ -1,7 +1,60 @@
-# library-app
+# 프로젝트 설명
+### 도서관리 프로젝트
+#### 개발 필수 요건
+
+#### 회원관리
+- [X] 회원 가입/목록/수정/삭제가 가능해야 한다.
+
+#### 도서관리
+- [X] 도서를 저장할 수 있어야 한다.
+- [X] 도서를 대여할 수 있어야 한다.
+- [X] 도서를 반납할 수 있어야 한다.
+
+#### 대출내역관리
+- [X] 도서가 대여 중인지, 반납인지 확인할 수 있어야 한다.
+
+# 사용한 기술
+- <b>Java 11</b>
+- <b>SpringBoot 2.7.8</b>
+- <b>H2 DB</b>
+  - 로컬 환경에서 H2 DB를 사용하였습니다.
+- <b>JPA</b>
+- <b>MySql</b>
+  - 개발 및 배포 환경에서 MySql을 사용하였습니다.
+  
+# Project Sturucture
+```
+
+─ src
+    ├─ config // 설정관련
+    ├─ controller // 컨트롤러
+    │   ├─ book 
+    │   ├─ calculator // 공부용 (Disabled)
+    │   └─ user  
+    ├─ domain // 도메인
+    │   ├─ book // 도서 엔티티, 도서 Repository 
+    │   └─ user // 회원 엔티티, 회원 Repository
+    │       └─ loanhistory // 대출 기록 엔티티, 대출 기록 Repository
+    ├─ dto // DTO
+    │   ├─ book // 도서관리 요청
+    │   │  └─ request  
+    │   ├─ calculator // (Disabled)
+    │   │  └─ request
+    │   └─ user // 회원관리 요청/응답
+    │       ├─ request 
+    │       └─ response
+    ├─ repository 
+    │   └─ user // JdbcTemplate (리팩토링 후 사용 X)
+    └─ service // 서비스 계층
+        └─ book
+        └─ user
+```
+
 ## 아이템 선정
 - 스프링 부트를 공부하기 위해 강의를 찾다가, 도서관리 웹 프로젝트를 만드는 흥미로운 소재를 찾아 따라해보고, 
 실제 배포까지 해보는 과정을 경험하고 싶어 선택하게 되었다.
+
+# ERD
 
 ## 개요
 - 프로젝트 명칭: library-app
@@ -18,10 +71,10 @@
     - [X] 사용자가 책을 빌릴 수 있다.
       - [X] 다른 사람이 그 책을 진작 빌렸다면 빌릴 수 없다.
     - [X] 사용자가 책을 반납할 수 있다.
-- 개발 언어: Java 11
-- 개발 환경: SpringBoot 2.7.8, gradle
-- 형상관리 툴: GitHub
+    
 
+
+# 
 ## 요구사항 분석
 - 도서관 사용자 등록 페이지
   - 유효성 검사
