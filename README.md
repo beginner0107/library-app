@@ -130,7 +130,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findByName(String name);
 }
 ```
-해결: `Repository`를 만들고 `JpaRepository`를 상속 받아 JPA로 전환하였습니다.
+<b>해결</b>: `Repository`를 만들고 `JpaRepository`를 상속 받아 JPA로 전환하였습니다.
 
 
 
